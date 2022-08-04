@@ -17,21 +17,19 @@ public class HashLinearProbing {
 
     public int hashing(String key) {
     	int comKey= Integer.parseInt(key); //convertimos el DNI a int
-    	while(esPrimo(hsize)) { //el tamano lo convertimos a primo para que la funcion hash se mas eficiente
-    		hsize--;
-    	}
-        int hash = comKey % hsize; //dividimos el DNI convertido a entero por el numero primo que generamos 
+    	int primo = generarPrimo(hsize); //generamos el primo menor mas cercano para que nuestro hashing sea mas eficiente
+        int hash = comKey % primo; //dividimos el DNI convertido a entero por el numero primo que generamos 
         return hash;
     }
     
-    public boolean esPrimo(int n) { //metodo para verificar si es primo lo usaremos para encontrar el primo mas
-    	//cercano en la funcion hash
+    public int generarPrimo(int n) { //genera el numero primo mas cercano a n
     	for(int i = 2; i < n; i++) {
-    		if(n % i == 0) {
-    			return true;
+    		if(n % i == 0) { //si se puede dividir
+    			n--; //bajaremos el numero
+    			i = 2; //y reiniciaremos el bucle
     		}
     	}
-    	return false;
+    	return n;
     }
     
     //El resto del codigo fue modificado para que funcione con la clase persona
